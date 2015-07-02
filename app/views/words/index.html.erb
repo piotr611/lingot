@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Words</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Russian</th>
+      <th>English</th>
+      <th>Img url</th>
+      <th>Subject</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @words.each do |word| %>
+      <tr>
+        <td><%= word.russian %></td>
+        <td><%= word.english %></td>
+        <td><%= word.img_url %></td>
+        <td><%= word.subject %></td>
+        <td><%= link_to 'Show', word %></td>
+        <td><%= link_to 'Edit', edit_word_path(word) %></td>
+        <td><%= link_to 'Destroy', word, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Word', new_word_path %>
+
+<div>
+  <p> <% random_word_number = Random.rand(@words.size) %>
+  <p> <%= @words[random_word_number].russian %> </p> 
+  <p> <%= text_field_tag '-', nil %> </p>
+  <p> <%= %> </p>
+  <p>  <%= link_to 'Translate' %>
+  </p>
+</div>
+
+<%= form_for control_translater_path, :method => "GET" do %>
+    <%= label_tag :word, @words[random_word_number].russian %>
+    <%= text_field_tag :word, @insert_word %><br/>        
+    <%= submit_tag "Control translate" %>
+<% end %>
+
+<p><%= @counter %></p>
